@@ -1,0 +1,240 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Room: <%= roomId %></title>
+
+    <!-- PeerJS and Socket.IO -->
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js" defer></script>
+    <script src="/socket.io/socket.io.js" defer></script>
+    
+    <!-- Room.js script -->
+    <script src="/scripts/room.js" defer></script>
+
+
+    <style>
+
+        *{
+            box-sizing: border-box;
+        }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        min-height: 100vh;
+        background-color: #f7eee9;
+        background-image: url("/room.jpg");
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        overflow: hidden;
+      }
+      #load {
+        display: none;
+        width: 100%;
+        height: 100%;
+        scale: 0;
+        animation: expand 0.4s ease 0.2s 1 forwards;
+
+
+      }
+      #loading {
+        display: block;
+        animation: shrink 0.4s ease 1.6s 1 forwards;
+      }
+      #video-grid {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        transition: all ease 0.5s;
+        width: 100%;
+        height: 100%;
+      }
+
+      video {
+        object-fit: cover;
+        width: 300px;
+        height: 300px;
+        object-position: center;
+        border-radius: 20px;
+        transition: all ease 0.5s;
+        border: 5px solid rgb(107, 74, 255);
+
+      }
+
+      /* From Uiverse.io by JkHuger */
+      .wave-menu {
+        background:  #545fe5;
+        border-radius: 50px;
+        width: 20vw;
+        height: 10vh;
+        min-height: 65px;
+        min-width: 220px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0px;
+        margin: 0;
+        cursor: pointer;
+        transition: ease 0.2s;
+        position: relative;
+      }
+
+      .wave-menu li {
+        list-style: none;
+        height: 30px;
+        width: 4px;
+        border-radius: 10px;
+        background: #f7eee9;
+        margin: 0 6px;
+        padding: 0;
+        animation-name: wave1;
+        animation-duration: 0.3s;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+        transition: ease 0.2s;
+      }
+
+      .wave-menu li:nth-child(2) {
+        animation-name: wave2;
+        animation-delay: 0.2s;
+      }
+
+      .wave-menu li:nth-child(3) {
+        animation-name: wave3;
+        animation-delay: 0.23s;
+        animation-duration: 0.4s;
+      }
+
+      .wave-menu li:nth-child(4) {
+        animation-name: wave4;
+        animation-delay: 0.1s;
+        animation-duration: 0.3s;
+      }
+
+      .wave-menu li:nth-child(5) {
+        animation-delay: 0.5s;
+      }
+
+      .wave-menu li:nth-child(6) {
+        animation-name: wave2;
+        animation-duration: 0.5s;
+      }
+
+      .wave-menu li:nth-child(8) {
+        animation-name: wave4;
+        animation-delay: 0.4s;
+        animation-duration: 0.25s;
+      }
+
+      .wave-menu li:nth-child(9) {
+        animation-name: wave3;
+        animation-delay: 0.15s;
+      }
+
+      @keyframes wave1 {
+        from {
+          transform: scaleY(1);
+        }
+
+        to {
+          transform: scaleY(0.5);
+        }
+      }
+
+      @keyframes wave2 {
+        from {
+          transform: scaleY(0.3);
+        }
+
+        to {
+          transform: scaleY(0.6);
+        }
+      }
+
+      @keyframes wave3 {
+        from {
+          transform: scaleY(0.6);
+        }
+
+        to {
+          transform: scaleY(0.8);
+        }
+      }
+
+      @keyframes wave4 {
+        from {
+          transform: scaleY(0.2);
+        }
+
+        to {
+          transform: scaleY(0.5);
+        }
+      }
+
+      @keyframes shrink {
+        0%{
+            scale: 1;
+        }
+        100%{
+            scale: 0;
+        }
+      }
+      @keyframes expand {
+        0%{
+            scale: 0;
+        }
+        100%{
+            scale: 1;
+        }
+      }
+
+
+    </style>
+  </head>
+  <body>
+    <!-- Loading screen -->
+    <div id="loading">
+      <ul class="wave-menu">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+
+    <!-- Video grid -->
+    <div id="load" style="display: none;">
+      <div id="video-grid"></div>
+    </div>
+
+    <script>
+      // Set the room_id for use in your scripts
+      const room_id = "<%= roomId %>"; 
+
+      // Hide the loading screen and show the video grid after a delay
+      setTimeout(() => {
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("load").style.display = "block";
+
+        // Validate room ID format
+        if (room_id[8] === '-' && room_id[13] === '-' && room_id[18] === '-' && room_id[23] === '-' && room_id.length === 36) {
+          // Room ID is valid
+        } else {
+          // Redirect to a bad request page if the room ID is invalid
+          const link = "/bad-request"; // Use relative URL if on the same domain
+          location.href = link;
+        }
+      }, 2000);
+    </script>
+  </body>
+</html>

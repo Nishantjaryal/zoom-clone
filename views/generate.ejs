@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>generate Key</title>
+</head>
+<style>
+
+
+
+    body{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                min-height: 100vh;
+                background-color: #F7EEE9;
+                overflow: hidden;
+                background-image: url("/ill.jpg");
+                /* background-position: center; */
+                background-size: cover;
+                background-repeat: no-repeat;
+                overflow: hidden;
+     }
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background-color: #ffffff;
+      padding: 30px 30px 10px 30px;
+      width: 30%;
+      min-width: 300px;
+      min-height: 170px;
+      border-radius: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+    
+    ::placeholder {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+    
+    .form button {
+      align-self: flex-end;
+    }
+    
+    .flex-column > label {
+      color: #151717;
+      font-weight: 600;
+    }
+    
+    .inputForm {
+      border: 1.5px solid #bbb;
+      border-radius: 10px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      padding-left: 20px;
+      transition: 0.2s ease-in-out;
+      margin-bottom: 5px;
+
+    }
+    
+    .input {
+      margin-left: 15px;
+      border-radius: 10px;
+      border: none;
+      /* border-top: 1.5px solid #bbb;
+      border-bottom: 1.5px solid #bbb; */
+      width: 100%;
+      height: 90%;
+    }
+    
+    .input:focus {
+      outline: none;
+    }
+    
+    .inputForm:focus-within {
+      border: 1.5px solid #2d79f3;
+    }
+    
+    .flex-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+      justify-content: space-between;
+    }
+    
+    .flex-row > div > label {
+      font-size: 14px;
+      color: black;
+      font-weight: 400;
+    }
+    
+    .span {
+      font-size: 14px;
+      margin-left: 5px;
+      color: #2d79f3;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    
+    .button-submit {
+      margin: 0px 0 10px 0;
+      background-color: #151717;
+      border: none;
+      color: white;
+      font-size: 15px;
+      font-weight: 500;
+      border-radius: 10px;
+      height: 50px;
+      width: 100%;
+      cursor: pointer;
+    }
+    .btb{
+        margin: 0px 0 10px 0;
+      background-color: #151717;
+      border: none;
+      color: white;
+      font-size: 15px;
+      font-weight: 500;
+      border-radius: 10px;
+      height: 50px;
+      width: 100%;
+      cursor: pointer;
+    }
+    
+    .p {
+      text-align: center;
+      color: black;
+      font-size: 14px;
+      margin: 10px 0;
+    }
+
+    .flex{
+        display: flex;
+        gap: 10px;
+    }
+    
+    
+    a{
+        text-decoration: none;
+    
+    }
+    .a{
+       width: 50%;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+    
+    }
+
+    .l-15{
+        margin-left: 15px;
+    }
+    
+        
+        </style>
+<body>
+    <div class="form">
+        <div class="flex-column">
+          <label>Room Key</label>
+          </div>
+          <div class="inputForm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="-64 0 512 512" height="20"><path d="m336 512h-288c-26.453125 0-48-21.523438-48-48v-224c0-26.476562 21.546875-48 48-48h288c26.453125 0 48 21.523438 48 48v224c0 26.476562-21.546875 48-48 48zm-288-288c-8.8125 0-16 7.167969-16 16v224c0 8.832031 7.1875 16 16 16h288c8.8125 0 16-7.167969 16-16v-224c0-8.832031-7.1875-16-16-16zm0 0"></path><path d="m304 224c-8.832031 0-16-7.167969-16-16v-80c0-52.929688-43.070312-96-96-96s-96 43.070312-96 96v80c0 8.832031-7.167969 16-16 16s-16-7.167969-16-16v-80c0-70.59375 57.40625-128 128-128s128 57.40625 128 128v80c0 8.832031-7.167969 16-16 16zm0 0"></path></svg>        
+            <p class="l-15" id="box"><%=id%></p>
+          </div>
+        <div class="flex">
+            
+        <a class="a" href="" id="meet"><button class="button-submit">Start Room</button></a>
+        <a class="a"><button class="btb" id="cpy">Copy link</button></a>
+        </div>
+        <p class="p"> <a href="/"><span class="span">Back to home</span></a>
+
+    
+        </div></div>
+        <script>
+            const cp_id = `http://localhost:3000/${document.getElementById("box").innerText}`;
+            document.getElementById("cpy").addEventListener("click",()=>{
+                navigator.clipboard.writeText(cp_id);
+                document.getElementById("cpy").innerText = "Copied!"
+                
+            // /* Select the text field */
+            // cp_id.select();
+            // /* Copy the text inside the text field */
+            // document.execCommand("copy");
+            })
+
+            document.getElementById("meet").href = cp_id;
+        </script>
+</body>
+</html>
